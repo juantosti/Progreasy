@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Progreasy · Librería Completa</title>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- TOP NAV -->
+<div class="inner">
+  <div class="topnav">
+    <a href="index.html" class="back-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+      Volver
+    </a>
+    <a href="index.html" class="brand">Progr<em>easy</em></a>
+  </div>
+</div>
+
+<!-- HEAD -->
+<div class="inner">
+  <div class="page-head">
+    <h1>Librería <em>Completa</em></h1>
+    <p>144 tracks de progressive house ordenados por tonalidad Camelot, de 1A a 12A. Escuchá algunos previews y llevate la colección completa.</p>
+  </div>
+</div>
+
+<!-- PREVIEWS -->
+<div class="inner packs">
+  <div class="pack">
+    <div class="pack-header">
+      <div class="pack-left">
+        <span class="pack-label">Preview</span>
+        <span class="pack-count">4 de 144 tracks</span>
+      </div>
+    </div>
+    <div class="pack-tracks" id="tracks-container"></div>
+    <div class="more-row" id="more-row"></div>
+  </div>
+</div>
+
+<!-- BUY BLOCK -->
+<div class="inner">
+  <div class="buy-block">
+    <h3>Librería Completa &mdash; 1A a 12A</h3>
+    <p>144 tracks ordenados, con tonalidad y BPM en cada nombre. Recibilos por correo apenas se confirme el pago.</p>
+    <div class="promo-price">
+      <span class="price-old">$99.000</span>
+      <span class="price-new">$54.450</span>
+    </div>
+    <button class="cta buy" onclick="window.open(SHOPIFY_URL, '_blank')">Comprar librería completa</button>
+  </div>
+</div>
+
+<footer><div class="inner"><p>Progreasy &mdash; 2026</p></div></footer>
+
+<script src="https://w.soundcloud.com/player/api.js"></script>
+<script src="player.js"></script>
+<script>
+const SHOPIFY_URL = 'https://progreasy.myshopify.com/';
+
+// 4 previews. Pega las URLs de SoundCloud en las que faltan para activarlas.
+const PREVIEWS = [
+  { name: "Preview 01", sc: "https://soundcloud.com/juan-tosticarelli-526503295/v20" },
+  { name: "Preview 02", sc: "https://soundcloud.com/juan-tosticarelli-526503295/shalom-cmin-122" },
+  { name: "Preview 03", sc: "" },
+  { name: "Preview 04", sc: "" },
+];
+
+// Filas bloqueadas que dan idea de la cantidad y el orden
+const LOCKED = [
+  { name: "10A · 126 BPM", locked: true },
+  { name: "7A · 124 BPM", locked: true },
+  { name: "3A · 122 BPM", locked: true },
+  { name: "12A · 128 BPM", locked: true },
+];
+
+const container = document.getElementById('tracks-container');
+let n = 1;
+PREVIEWS.forEach((t, i) => {
+  // si no tiene URL, se muestra como bloqueado
+  const data = t.sc ? t : { name: t.name, locked: true };
+  container.appendChild(createTrack(data, n++, 'lib-' + i));
+});
+LOCKED.forEach((t, i) => {
+  container.appendChild(createTrack(t, n++, 'lib-locked-' + i));
+});
+
+document.getElementById('more-row').textContent = '+ 136 tracks más en la librería completa';
+</script>
+</body>
+</html>
