@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Progreasy · Packs por Tonalidad</title>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- TOP NAV -->
+<div class="inner">
+  <div class="topnav">
+    <a href="index.html" class="back-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+      Volver
+    </a>
+    <a href="index.html" class="brand">Progr<em>easy</em></a>
+  </div>
+</div>
+
+<!-- HEAD -->
+<div class="inner">
+  <div class="page-head">
+    <h1>Packs por <em>Tonalidad</em></h1>
+    <p>Comprá únicamente el grupo de tonalidad que necesites. +20 tracks por cada clave Camelot. Escuchá 2 previews de cada grupo.</p>
+  </div>
+</div>
+
+<!-- GRUPOS -->
+<div class="inner packs" id="groups-container"></div>
+
+<footer><div class="inner"><p>Progreasy &mdash; 2026</p></div></footer>
+
+<script src="https://w.soundcloud.com/player/api.js"></script>
+<script src="player.js"></script>
+<script>
+const SHOPIFY_URL = 'https://progreasy.myshopify.com/';
+const PRICE = '$8.750';
+
+// 12 tonalidades Camelot (1A a 12A). Pega 2 URLs de SoundCloud por grupo.
+const TONALIDADES = [
+  { key: "1AB",  previews: [
+      { name: "Preview 01", sc: "https://soundcloud.com/juan-tosticarelli-526503295/v20" },
+      { name: "Preview 02", sc: "https://soundcloud.com/juan-tosticarelli-526503295/shalom-cmin-122" },
+  ]},
+  { key: "2AB",  previews: [{ name: "Preview 01", sc: "" }, { name: "Preview 02", sc: "" }] },
+  { key: "3AB",  previews: [{ name: "Preview 01", sc: "" }, { name: "Preview 02", sc: "" }] },
+  { key: "4AB",  previews: [{ name: "Preview 01", sc: "" }, { name: "Preview 02", sc: "" }] },
+  { key: "5AB",  previews: [{ name: "Preview 01", sc: "" }, { name: "Preview 02", sc: "" }] },
+  { key: "6AB",  previews: [{ name: "Preview 01", sc: "" }, { name: "Preview 02", sc: "" }] },
+  { key: "7AB",  previews: [{ name: "Preview 01", sc: "" }, { name: "Preview 02", sc: "" }] },
+  { key: "8AB",  previews: [{ name: "Preview 01", sc: "" }, { name: "Preview 02", sc: "" }] },
+  { key: "9AB",  previews: [{ name: "Preview 01", sc: "" }, { name: "Preview 02", sc: "" }] },
+  { key: "10AB", previews: [{ name: "Preview 01", sc: "" }, { name: "Preview 02", sc: "" }] },
+  { key: "11AB", previews: [{ name: "Preview 01", sc: "" }, { name: "Preview 02", sc: "" }] },
+  { key: "12AB", previews: [{ name: "Preview 01", sc: "" }, { name: "Preview 02", sc: "" }] },
+];
+
+const container = document.getElementById('groups-container');
+
+TONALIDADES.forEach((g, gi) => {
+  const pack = document.createElement('div');
+  pack.className = 'pack';
+
+  const header = document.createElement('div');
+  header.className = 'pack-header';
+  header.innerHTML = `
+    <div class="pack-left">
+      <span class="pack-label">Pack ${g.key}</span>
+      <span class="pack-count">+20 tracks</span>
+    </div>
+    <div class="pack-right">
+      <span class="pack-price">${PRICE}</span>
+      <button class="buy-btn" onclick="window.open(SHOPIFY_URL, '_blank')">Comprar</button>
+    </div>
+  `;
+  pack.appendChild(header);
+
+  const tracksDiv = document.createElement('div');
+  tracksDiv.className = 'pack-tracks';
+  let n = 1;
+  g.previews.forEach((t, ti) => {
+    const data = t.sc ? t : { name: t.name, locked: true };
+    tracksDiv.appendChild(createTrack(data, n++, `g${gi}-t${ti}`));
+  });
+  pack.appendChild(tracksDiv);
+
+  const more = document.createElement('div');
+  more.className = 'more-row';
+  more.textContent = '+ 18 tracks más en este pack';
+  pack.appendChild(more);
+
+  container.appendChild(pack);
+});
+</script>
+</body>
+</html>
